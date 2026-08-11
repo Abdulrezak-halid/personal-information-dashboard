@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"], "@picc/shared": ["../../packages/shared/src/index.ts"] }
+  },
+  "include": ["src"],
+  "references": [{ "path": "../../packages/shared" }]
+}

@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - '3001:3001'
+    environment:
+      PORT: 3001
+      HOST: 0.0.0.0
+      WEB_DIST_PATH: apps/web/dist
+      ALLOWED_ORIGINS: http://localhost:3001
+      RSS_TIMEOUT_MS: 8000
+      RSS_MAX_BYTES: 2097152
+      RSS_RATE_LIMIT_PER_MINUTE: 30
+    restart: unless-stopped
