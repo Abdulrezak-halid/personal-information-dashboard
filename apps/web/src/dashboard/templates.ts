@@ -2,7 +2,7 @@ import type { Dashboard, WidgetInstance, WidgetLayout } from '@picc/shared'
 import { createId } from '@/lib/utils'
 import { getWidgetDefinition } from '@/widgets/registry'
 
-export type TemplateId = 'demo' | 'daily' | 'developer' | 'market' | 'blank'
+export type TemplateId = 'daily' | 'blank'
 export const templateCatalog: Array<{
   id: TemplateId
   name: string
@@ -11,32 +11,11 @@ export const templateCatalog: Array<{
   widgetTypes: string[]
 }> = [
   {
-    id: 'demo',
-    name: 'Demo Dashboard',
-    description: 'A polished, deterministic showcase with sample data.',
-    icon: '✨',
-    widgetTypes: ['clock', 'weather', 'crypto', 'hacker-news', 'tasks', 'mock-metrics'],
-  },
-  {
     id: 'daily',
     name: 'Daily Dashboard',
     description: 'Time, weather, headlines, and your local tasks.',
     icon: '📊',
     widgetTypes: ['clock', 'weather', 'hacker-news', 'tasks'],
-  },
-  {
-    id: 'developer',
-    name: 'Developer Dashboard',
-    description: 'News, feeds, tasks, and a mock operational chart.',
-    icon: '👨‍💻',
-    widgetTypes: ['clock', 'hacker-news', 'rss', 'tasks', 'mock-metrics'],
-  },
-  {
-    id: 'market',
-    name: 'Market Dashboard',
-    description: 'Crypto prices beside a compact market-style chart.',
-    icon: '💰',
-    widgetTypes: ['clock', 'crypto', 'mock-metrics', 'hacker-news'],
   },
   {
     id: 'blank',
@@ -52,7 +31,7 @@ export function createDashboardFromTemplate(
   selectedTypes?: string[],
   preferences?: { timezone?: string; location?: string },
 ): Dashboard {
-  const template = templateCatalog.find((item) => item.id === templateId) ?? templateCatalog[4]!
+  const template = templateCatalog.find((item) => item.id === templateId) ?? templateCatalog[1]!
   const widgetTypes = selectedTypes ?? template.widgetTypes
   const widgets: WidgetInstance[] = []
   const layout: WidgetLayout[] = []
@@ -95,7 +74,7 @@ export function createDashboardFromTemplate(
     name: template.name.replace(' Dashboard', '') || 'Dashboard',
     createdAt: now,
     updatedAt: now,
-    dataMode: templateId === 'demo' ? 'demo' : 'live',
+    dataMode: 'live',
     widgets,
     layout,
     settings: { columns: 12, rowHeight: 56, gap: 12, compact: true, background: 'grid' },

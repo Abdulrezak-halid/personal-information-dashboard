@@ -11,7 +11,7 @@ export function Onboarding() {
   const complete = useDashboardStore((state) => state.completeOnboarding)
   const initialPreferences = useDashboardStore((state) => state.preferences)
   const [step, setStep] = useState(0)
-  const [template, setTemplate] = useState<TemplateId>('demo')
+  const [template, setTemplate] = useState<TemplateId>('daily')
   const templateDefinition = useMemo(
     () => templateCatalog.find((item) => item.id === template)!,
     [template],
@@ -41,21 +41,21 @@ export function Onboarding() {
           {['Start', 'Widgets', 'Preferences', 'Integrations'].map((label, index) => (
             <div key={label} className="flex flex-1 items-center gap-2">
               <span
-                className={`grid size-7 shrink-0 place-items-center rounded-full text-xs ${index <= step ? 'bg-cyan-400 text-slate-950' : 'bg-white/7 text-[var(--muted)]'}`}
+                className={`grid size-7 shrink-0 place-items-center rounded-full text-xs ${index <= step ? 'bg-cyan-400 text-slate-950' : 'bg-white/7 text-(--muted)'}`}
               >
                 {index < step ? <Check size={14} /> : index + 1}
               </span>
-              <span className="hidden text-xs text-[var(--muted)] sm:block">{label}</span>
-              <span className="h-px flex-1 bg-[var(--border)] last:hidden" />
+              <span className="hidden text-xs text-(--muted) sm:block">{label}</span>
+              <span className="h-px flex-1 bg-(--border) last:hidden" />
             </div>
           ))}
         </div>
-        <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)]/95 p-5 shadow-2xl sm:p-8">
+        <section className="rounded-3xl border border-(--border) bg-(--surface)/95 p-5 shadow-2xl sm:p-8">
           {step === 0 && (
             <>
               <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Welcome 👋</p>
               <h1 className="mt-2 text-3xl font-light sm:text-4xl">How do you want to start?</h1>
-              <p className="mt-2 text-[var(--muted)]">
+              <p className="mt-2 text-(--muted)">
                 Choose a starting point. Nothing here is permanent.
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -63,14 +63,12 @@ export function Onboarding() {
                   <button
                     key={item.id}
                     onClick={() => chooseTemplate(item.id)}
-                    className={`flex items-start gap-4 rounded-2xl border p-5 text-left transition ${template === item.id ? 'border-cyan-400/60 bg-cyan-400/[0.07]' : 'border-[var(--border)] bg-[var(--surface-2)] hover:border-cyan-400/30'}`}
+                    className={`flex items-start gap-4 rounded-2xl border p-5 text-left transition ${template === item.id ? 'border-cyan-400/60 bg-cyan-400/[0.07]' : 'border-(--border) bg-(--surface-2) hover:border-cyan-400/30'}`}
                   >
                     <span className="text-2xl">{item.icon}</span>
                     <span>
                       <span className="font-semibold">{item.name}</span>
-                      <span className="mt-1 block text-sm text-[var(--muted)]">
-                        {item.description}
-                      </span>
+                      <span className="mt-1 block text-sm text-(--muted)">{item.description}</span>
                     </span>
                   </button>
                 ))}
@@ -83,7 +81,7 @@ export function Onboarding() {
                 Your building blocks
               </p>
               <h1 className="mt-2 text-3xl font-light">Choose initial widgets</h1>
-              <p className="mt-2 text-[var(--muted)]">
+              <p className="mt-2 text-(--muted)">
                 You can add, remove, or duplicate widgets later.
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -100,14 +98,14 @@ export function Onboarding() {
                             : [...current, item.type],
                         )
                       }
-                      className={`flex items-center gap-3 rounded-xl border p-4 text-left ${enabled ? 'border-cyan-400/50 bg-cyan-400/[0.06]' : 'border-[var(--border)]'}`}
+                      className={`flex items-center gap-3 rounded-xl border p-4 text-left ${enabled ? 'border-cyan-400/50 bg-cyan-400/6' : 'border-(--border)'}`}
                     >
                       <span className="grid size-9 place-items-center rounded-lg bg-white/5 text-cyan-300">
                         <Icon size={17} />
                       </span>
                       <span className="flex-1 text-sm font-medium">{item.name}</span>
                       <span
-                        className={`grid size-5 place-items-center rounded border ${enabled ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-[var(--border)]'}`}
+                        className={`grid size-5 place-items-center rounded border ${enabled ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-(--border)'}`}
                       >
                         {enabled && <Check size={13} />}
                       </span>
@@ -166,7 +164,7 @@ export function Onboarding() {
                     onValueChange={() => undefined}
                     options={[{ value: 'en', label: 'English' }]}
                   />
-                  <p className="mt-1 text-xs text-[var(--muted)]">
+                  <p className="mt-1 text-xs text-(--muted)">
                     More translations can be added without changing widget contracts.
                   </p>
                 </div>
@@ -179,7 +177,7 @@ export function Onboarding() {
                 Optional connections
               </p>
               <h1 className="mt-2 text-3xl font-light">Ready without API keys</h1>
-              <p className="mt-2 text-[var(--muted)]">
+              <p className="mt-2 text-(--muted)">
                 Skip integrations now and configure them later from Settings.
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -188,7 +186,7 @@ export function Onboarding() {
                   .map((integration) => (
                     <div
                       key={integration.id}
-                      className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4"
+                      className="rounded-xl border border-(--border) bg-(--surface-2) p-4"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{integration.name}</span>
@@ -198,13 +196,13 @@ export function Onboarding() {
                           {integration.requiresServer ? 'Server mode' : 'No key'}
                         </span>
                       </div>
-                      <p className="mt-2 text-xs text-[var(--muted)]">{integration.description}</p>
+                      <p className="mt-2 text-xs text-(--muted)">{integration.description}</p>
                     </div>
                   ))}
               </div>
             </>
           )}
-          <footer className="mt-8 flex items-center justify-between border-t border-[var(--border)] pt-5">
+          <footer className="mt-8 flex items-center justify-between border-t border-(--border) pt-5">
             <Button
               variant="ghost"
               disabled={step === 0}

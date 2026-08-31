@@ -109,6 +109,25 @@ export interface MarketQuote {
   demo?: boolean
 }
 
+export interface ExchangeRateData {
+  baseCurrency: string
+  quoteCurrency: string
+  rate: number
+  updatedAt: string
+  demo?: boolean
+}
+
+export interface StockQuote {
+  symbol: string
+  name?: string
+  price: number
+  change?: number
+  changePercent?: number
+  updatedAt: string
+  delayed?: boolean
+  demo?: boolean
+}
+
 export interface FeedItem {
   id: string
   title: string

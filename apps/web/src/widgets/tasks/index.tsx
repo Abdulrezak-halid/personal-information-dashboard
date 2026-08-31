@@ -47,7 +47,7 @@ function TasksWidget({ settings, updateSettings }: WidgetComponentProps<Settings
       </form>
       <div className="mt-3 min-h-0 flex-1 space-y-1 overflow-auto">
         {visible.length === 0 && (
-          <div className="grid h-full place-items-center text-sm text-[var(--muted)]">
+          <div className="grid h-full place-items-center text-sm text-(--muted)">
             Your list is clear.
           </div>
         )}
@@ -58,7 +58,7 @@ function TasksWidget({ settings, updateSettings }: WidgetComponentProps<Settings
           >
             <button
               aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
-              className={`grid size-5 shrink-0 place-items-center rounded border ${task.completed ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-[var(--border)]'}`}
+              className={`grid size-5 shrink-0 place-items-center rounded border ${task.completed ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-(--border)'}`}
               onClick={() =>
                 updateSettings({
                   tasks: settings.tasks.map((item) =>
@@ -70,7 +70,7 @@ function TasksWidget({ settings, updateSettings }: WidgetComponentProps<Settings
               {task.completed && <Check size={13} />}
             </button>
             <span
-              className={`min-w-0 flex-1 truncate text-sm ${task.completed ? 'text-[var(--muted)] line-through' : ''}`}
+              className={`min-w-0 flex-1 truncate text-sm ${task.completed ? 'text-(--muted) line-through' : ''}`}
             >
               {task.text}
             </span>
@@ -86,7 +86,7 @@ function TasksWidget({ settings, updateSettings }: WidgetComponentProps<Settings
           </div>
         ))}
       </div>
-      <div className="mt-2 text-[10px] uppercase tracking-widest text-[var(--muted)]">
+      <div className="mt-2 text-[10px] uppercase tracking-widest text-(--muted)">
         {settings.tasks.filter((task) => !task.completed).length} remaining · stored locally
       </div>
     </div>

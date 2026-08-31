@@ -3,7 +3,15 @@ import type { z } from 'zod'
 
 export type WidgetCategory = 'time' | 'weather' | 'finance' | 'news' | 'productivity' | 'developer'
 export type IconName =
-  'clock' | 'cloud-sun' | 'bitcoin' | 'newspaper' | 'rss' | 'list-checks' | 'chart'
+  | 'clock'
+  | 'cloud-sun'
+  | 'bitcoin'
+  | 'newspaper'
+  | 'rss'
+  | 'list-checks'
+  | 'globe'
+  | 'trending-up'
+  | 'zap'
 export type WidgetMode = 'view' | 'edit'
 export type WidgetSize = { width: number; height: number }
 
