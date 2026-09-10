@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
 :root {
   color-scheme: dark;
@@ -47,67 +47,6 @@ input {
 button {
   cursor: pointer;
 }
-.app-shell {
-  background-color: var(--background);
-}
-.background-grid {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--border) 24%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--border) 24%, transparent) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-.background-glow {
-  background-image:
-    radial-gradient(circle at 25% 0%, rgb(34 211 238 / 0.09), transparent 34%),
-    radial-gradient(circle at 90% 80%, rgb(59 130 246 / 0.07), transparent 28%);
-}
-.dashboard-grid {
-  padding: 10px 4px 40px;
-}
-.widget-frame {
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--surface) 96%, transparent);
-  box-shadow: 0 14px 40px rgb(0 0 0 / 0.16);
-}
-.widget-editing {
-  border-color: rgb(34 211 238 / 0.28);
-  box-shadow:
-    inset 0 0 0 1px rgb(34 211 238 / 0.04),
-    0 14px 40px rgb(0 0 0 / 0.16);
-}
-.react-grid-item > .react-resizable-handle::after {
-  border-color: rgb(34 211 238 / 0.8);
-  width: 8px;
-  height: 8px;
-  right: 5px;
-  bottom: 5px;
-}
-.react-grid-item.react-grid-placeholder {
-  background: rgb(34 211 238 / 0.18);
-  border: 1px dashed rgb(34 211 238 / 0.7);
-  border-radius: 14px;
-  opacity: 1;
-}
-.onboarding-bg {
-  background:
-    radial-gradient(circle at 18% 5%, rgb(34 211 238 / 0.1), transparent 30%), var(--background);
-}
-@media (max-width: 767px) {
-  .dashboard-grid {
-    padding-inline: 12px;
-  }
-  .react-grid-layout {
-    margin: 0 !important;
-  }
-}
-:fullscreen .dashboard-header {
-  display: none;
-}
-:fullscreen .dashboard-grid {
-  padding-top: 20px;
-}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -116,4 +55,375 @@ button {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* The home screen is intentionally a fixed, quiet set of eight cards. */
+.simple-dashboard {
+  min-height: 100vh;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 52px 40px 64px;
+}
+.simple-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.simple-kicker {
+  margin: 0 0 7px;
+  color: #a7d672;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.simple-header h1 {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+.density-toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: var(--text);
+  background: transparent;
+  font-size: 13px;
+  transition: 0.18s ease;
+}
+.density-toggle:hover {
+  border-color: #a7d672;
+  color: #c5f18f;
+}
+.simple-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.simple-card {
+  display: flex;
+  min-height: 290px;
+  flex-direction: column;
+  padding: 25px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: linear-gradient(145deg, #151b17, #0e1210);
+  color: var(--text);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+.simple-card-link {
+  text-decoration: none;
+}
+.simple-card-link:hover {
+  transform: translateY(-3px);
+  border-color: #788d67;
+  background: linear-gradient(145deg, #1b241d, #111713);
+}
+.simple-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #d9dfd7;
+  font-size: 14px;
+  font-weight: 650;
+}
+.simple-card-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: #293328;
+  color: #b9e881;
+}
+.simple-card-arrow {
+  margin-left: auto;
+  color: var(--muted);
+}
+.time-value {
+  margin-top: 22px;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2rem, 3.3vw, 3.1rem);
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+.time-zone {
+  margin: 7px 0 auto;
+  color: #a7d672;
+  font-size: 12px;
+}
+.date-pair {
+  display: grid;
+  gap: 3px;
+  margin-top: 12px;
+}
+.date-pair span,
+.card-footnote {
+  color: var(--muted);
+  font-size: 11px;
+}
+.date-pair strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.hijri-date {
+  color: #d7efc2;
+  font-family: Amiri, 'Noto Naskh Arabic', serif;
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  line-height: 1.1;
+}
+.weather-reading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: auto 0;
+}
+.weather-reading > strong {
+  font-size: 58px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.08em;
+}
+.weather-reading div {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+}
+.weather-reading small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.card-lead {
+  margin: 28px 0 14px;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+.muted-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.card-footnote {
+  margin: auto 0 0;
+}
+.index-list {
+  display: grid;
+  gap: 7px;
+}
+.index-list span {
+  padding: 7px 9px;
+  border-radius: 7px;
+  background: rgb(255 255 255 / 0.04);
+  color: #cbd2c9;
+  font-size: 12px;
+}
+.currency-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 25px 0 7px;
+}
+.currency-summary strong {
+  font-size: 27px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+.currency-summary span {
+  font-size: 11px;
+}
+.positive {
+  color: #b9e881;
+}
+.negative {
+  color: #ed9a8e;
+}
+.currency-chart {
+  width: 100%;
+  height: 76px;
+  overflow: visible;
+}
+.chart-line {
+  fill: none;
+  stroke: #b9e881;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.chart-area {
+  fill: rgb(185 232 129 / 0.13);
+}
+.headline-list {
+  display: grid;
+  gap: 9px;
+  margin: 16px 0 10px;
+}
+.headline {
+  display: grid;
+  gap: 2px;
+  color: var(--text);
+  text-decoration: none;
+}
+.headline span {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.headline small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.headline:hover span,
+.source-link:hover {
+  color: #c5f18f;
+}
+.source-link {
+  display: block;
+  text-decoration: none;
+}
+.task-list {
+  display: grid;
+  gap: 8px;
+  margin: 17px 0 12px;
+  overflow: auto;
+}
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+.task-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-check {
+  display: grid;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid #596459;
+  border-radius: 5px;
+  background: transparent;
+  color: transparent;
+}
+.task-check.done {
+  border-color: #a7d672;
+  background: #a7d672;
+  color: #182015;
+}
+.task-done {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.task-remove {
+  margin-left: auto;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  opacity: 0.55;
+}
+.task-remove:hover {
+  color: #ed9a8e;
+  opacity: 1;
+}
+.task-add {
+  display: flex;
+  gap: 7px;
+  margin-top: auto;
+}
+.task-add input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 9px;
+  outline: none;
+  background: #121512;
+  color: var(--text);
+  font-size: 12px;
+}
+.task-add input:focus {
+  border-color: #a7d672;
+}
+.task-add button {
+  display: grid;
+  width: 33px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: #a7d672;
+  color: #192014;
+}
+.is-compact .simple-card {
+  min-height: 225px;
+  padding: 19px;
+}
+.is-compact .time-value {
+  margin-top: 14px;
+  font-size: 2.2rem;
+}
+.is-compact .card-lead {
+  margin-top: 18px;
+  font-size: 16px;
+}
+.simple-card:nth-child(2) { grid-column: span 2; }
+.weather-hero { display: flex; align-items: center; gap: 22px; margin: 18px 0; }
+.weather-hero > strong { color: #f5bf2d; font-size: 33px; font-weight: 400; }
+.weather-hero > strong span { color: var(--text); font-size: 52px; letter-spacing: -.08em; }
+.weather-hero div { display: grid; gap: 5px; font-size: 14px; }
+.weather-hero small { color: var(--muted); font-size: 11px; line-height: 1.35; }
+.weather-tabs { display: flex; gap: 16px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+.weather-tabs > * { padding: 0 0 8px; font-weight: 400; }
+.weather-tabs b { border-bottom: 2px solid #f5bf2d; color: var(--text); }
+.weather-chart { width: 100%; height: 72px; margin-top: 8px; }
+.weather-line { fill: none; stroke: #f5bf2d; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.weather-area { fill: rgb(245 191 45 / .18); }
+.weather-hours { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+.forecast-days { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; margin-top: 14px; }
+.forecast-days div { display: grid; justify-items: center; gap: 5px; padding: 7px 3px; border-radius: 9px; font-size: 11px; }
+.forecast-days div:first-child { background: rgb(255 255 255 / .06); }
+.forecast-days b { font-weight: 500; }
+.forecast-days span { color: #f5bf2d; font-size: 21px; }
+.forecast-days small { white-space: nowrap; color: var(--text); font-size: 10px; }
+.forecast-days i { color: var(--muted); font-style: normal; }
+@media (max-width: 1080px) {
+  .simple-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .simple-dashboard {
+    padding: 28px 16px 36px;
+  }
+  .simple-header {
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .simple-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .simple-card {
+    min-height: 240px;
+  }
+  .simple-card:nth-child(2) { grid-column: auto; }
+  .forecast-days { overflow-x: auto; grid-template-columns: repeat(8, 54px); }
 }

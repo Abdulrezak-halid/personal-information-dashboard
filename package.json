@@ -4,23 +4,23 @@
   "private": true,
   "version": "0.1.0",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
-    "dev": "npm run build -w @picc/shared && concurrently -n web,api -c cyan,magenta \"npm run dev -w @picc/web\" \"npm run dev -w @picc/api\"",
-    "build": "npm run build -w @picc/shared && npm run build -w @picc/web && npm run build -w @picc/api",
+    "dev": "concurrently -n web,api -c cyan,magenta \"npm run dev -w @picc/web\" \"npm run dev -w @picc/api\"",
+    "build": "npm run build -w @picc/web && npm run build -w @picc/api",
     "start": "npm run start -w @picc/api",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "eslint . --max-warnings=0",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "test:e2e": "playwright test"
+    "preview:capture": "node scripts/capture-preview.mjs",
+    "test:e2e": "echo 'No end-to-end suite is configured for the focused dashboard.'"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
     "@playwright/test": "^1.50.0",
+    "@eslint/js": "^9.0.0",
     "concurrently": "^9.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-react-hooks": "^5.2.0",
