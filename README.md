@@ -1,25 +1,23 @@
-# Personal Information Control Center
+# Personal Dashboard
 
-An open-source, self-hosted dashboard platform for arranging the information that matters to you. Build multiple dashboards from draggable, resizable widgets; configure them entirely in the UI; and run the useful core without accounts or API keys.
+A clean, self-hosted single-page dashboard for the information you want to see every day—without widgets to configure, multiple dashboard tabs, or an editing mode.
 
-> Status: MVP. The project name is intentionally descriptive while the platform matures.
+![Personal Dashboard preview](docs/assets/dashboard-preview.png)
 
-![Demo dashboard showing configurable time, weather, market, feed, task, and metrics widgets](docs/assets/dashboard-preview.png)
+## Included cards
 
-## What is included
+- Live time with Gregorian and Arabic Hijri dates
+- Mersin, Türkiye weather: current conditions, hourly temperature movement, and eight-day forecast
+- Live USD/TRY currency index with a trend chart
+- Markets and global-statistics shortcuts
+- Current AI and programming headlines
+- A lightweight, browser-local task list
 
-- Responsive 4–24-column dashboard grid with View, Edit, and fullscreen/TV modes
-- Multiple dashboards, built-in templates, schema-driven widget settings, and JSON import/export
-- Clock, Weather, Crypto, Hacker News, RSS, Tasks, and Mock Metrics widgets
-- Demo Dashboard with deterministic data and Blank Dashboard for building from scratch
-- Light, dark, and system themes with local browser persistence
-- Registry-based widget and provider APIs for contributors
-- Optional hardened RSS service; no general-purpose proxy
-- Static frontend and Docker/VPS deployment paths
+The layout shows eight large cards by default. Use **Compact view** if you prefer a denser arrangement. External resources open in the same tab.
 
 ## Quick start
 
-Requirements: Node.js 20.19+ (Node 22 recommended) and npm 10+.
+Requirements: Node.js 20.19+ and npm 10+.
 
 ```bash
 git clone <repository-url>
@@ -29,84 +27,56 @@ cp .env.example .env
 npm run dev
 ```
 
-Open `http://localhost:5173`. The same command starts the Vite web app and the optional Hono API. Choose Demo Dashboard to explore the platform without external requests or choose any live template to use no-key providers.
+Open `http://localhost:5173`.
 
-Useful commands:
+`npm run dev` starts both the React frontend and its small API server. The API keeps provider keys on the server, never in the browser.
 
-```bash
-npm run typecheck
-npm test
-npm run build
-npm run test:e2e
-npm start
+## Configuration
+
+Copy `.env.example` to `.env`, then supply the provider keys you use:
+
+```env
+# CurrencyAPI: live USD/TRY value and historical chart data
+CURRENCY_API_KEY=
+
+# Meteosource: current, hourly, and daily weather for Mersin
+METEOSOURCE_API_KEY=
 ```
 
-`npm start` serves the already-built API. In the Docker image, that server also serves the built web application.
+`WEATHER_API_KEY` is also accepted as a backwards-compatible alias for `METEOSOURCE_API_KEY`.
 
-## Configuration model
+Do not use `VITE_` for provider credentials—Vite exposes those variables to browser code. Without a Meteosource key, weather falls back to Open-Meteo; without a CurrencyAPI key, the currency card falls back to Frankfurter data.
 
-Dashboard configuration belongs in the UI: weather location, timezone, assets, feed URLs, refresh intervals, article counts, grid columns, theme, and layout are stored locally through a storage adapter. They do not belong in `.env`.
-
-Environment variables are reserved for server infrastructure:
-
-| Variable                    | Default                 | Purpose                            |
-| --------------------------- | ----------------------- | ---------------------------------- |
-| `PORT`                      | `3001`                  | Hono server port                   |
-| `HOST`                      | `0.0.0.0`               | Bind address                       |
-| `WEB_DIST_PATH`             | `../web/dist`           | Optional built frontend path       |
-| `ALLOWED_ORIGINS`           | `http://localhost:5173` | Comma-separated API CORS origins   |
-| `RSS_TIMEOUT_MS`            | `8000`                  | Remote feed timeout                |
-| `RSS_MAX_BYTES`             | `2097152`               | Maximum feed response size         |
-| `RSS_RATE_LIMIT_PER_MINUTE` | `30`                    | RSS requests per client per minute |
-
-Never put a secret in a `VITE_*` variable: Vite exposes those values to browsers. V1 needs no provider credentials.
-
-## Integrations
-
-- **Open-Meteo:** browser-safe weather and geocoding without a key. The hosted free endpoint is intended for non-commercial use, is rate-limited, and requires attribution. Commercial deployments should configure a suitable future adapter or self-host the provider.
-- **Coinbase:** browser-safe public crypto spot prices without a key.
-- **Hacker News:** official public story API without a key.
-- **RSS/Atom:** requires Server Mode because browsers cannot reliably or safely fetch arbitrary feeds.
-
-Unavailable providers appear as “Coming Soon,” never as broken setup forms. See [integrations.md](docs/integrations.md).
-
-## Deployment
-
-Frontend-only deployments can publish `apps/web/dist` to a static host. Dashboard building, templates, Clock, Weather, Crypto, Hacker News, Tasks, and Mock Metrics work there; RSS clearly reports that Server Mode is needed.
-
-For the complete deployment:
+## Commands
 
 ```bash
-docker compose up -d --build
+npm run dev        # Run the web app and API locally
+npm run typecheck  # Check TypeScript
+npm run build      # Create production builds
+npm start          # Serve the built application
 ```
 
-Open `http://localhost:3001`. The image contains a health check at `/api/health`. See [self-hosting.md](docs/self-hosting.md) for static hosting, Docker, reverse-proxy, and VPS guidance.
+## Docker
 
-## Architecture and contribution
+```bash
+docker compose up --build
+```
 
-This repository uses npm workspaces:
+Open `http://localhost:3001`.
+
+## Project structure
 
 ```text
-apps/web       React dashboard, widgets, providers, and local persistence
-apps/api       Hono server and secure RSS normalization
-packages/shared  Versioned persistence/export schemas and normalized DTOs
+apps/web  React single-page dashboard
+apps/api  Small Hono API for protected weather and currency requests
 ```
 
-Read [architecture.md](docs/architecture.md) for data flow and security boundaries, and [creating-widgets.md](docs/creating-widgets.md) for the complete widget contribution workflow. General development and pull-request guidance is in [CONTRIBUTING.md](CONTRIBUTING.md).
+## Privacy
 
-## Security and privacy
-
-- Dashboards are local to the current browser and are not uploaded by this project.
-- Imports are schema-validated, added as new dashboards, and stripped of credential-shaped fields.
-- The RSS service blocks local/private/reserved network targets, pins validated DNS, revalidates redirects, and enforces response/time/rate limits.
-- Dashboard exports never include server environment variables.
-
-Report vulnerabilities according to [SECURITY.md](SECURITY.md).
-
-## Roadmap
-
-Planned work includes storage adapters for accounts/sync, GitHub and calendar widgets, broader market/news providers, Markdown and iframe widgets, a constrained Custom API widget, additional translations, and expanded themes. Runtime execution of arbitrary third-party JavaScript is not planned for the current extension model.
+- Tasks and the view-density preference stay in the current browser’s local storage.
+- API credentials remain server-side in `.env`.
+- The project does not include accounts, analytics, dashboard syncing, or arbitrary widget code.
 
 ## License
 
-Licensed under the [Apache License 2.0](LICENSE).
+[Apache License 2.0](LICENSE)
