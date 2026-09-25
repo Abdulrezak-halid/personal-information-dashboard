@@ -84,12 +84,6 @@ METEOSOURCE_API_KEY=...
 
 Do not paste the contents of `.env` as a public value or use `VITE_` prefixes for these keys. Vercel deploys the root `/api/weather` and `/api/currency` serverless functions alongside the Vite site, so the live cards continue to use the same `/api/*` paths after deployment.
 
-## Privacy
-
-- Tasks and the view-density preference stay in the current browser’s local storage.
-- API credentials remain server-side in `.env`.
-- The project does not include accounts, analytics, dashboard syncing, or arbitrary widget code.
-
 ## License
 
 [Apache License 2.0](LICENSE)
