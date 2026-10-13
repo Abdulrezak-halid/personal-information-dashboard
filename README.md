@@ -15,22 +15,6 @@ A clean, self-hosted single-page dashboard for the information you want to see e
 
 The layout shows eight large cards by default. Use **Compact view** if you prefer a denser arrangement. External resources open in the same tab.
 
-## Quick start
-
-Requirements: Node.js 20.19+ and npm 10+.
-
-```bash
-git clone <repository-url>
-cd personal-information-dashboard
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Open `http://localhost:5173`.
-
-`npm run dev` starts both the React frontend and its small API server. The API keeps provider keys on the server, never in the browser.
-
 ## Configuration
 
 Copy `.env.example` to `.env`, then supply the provider keys you use:
